@@ -1,0 +1,80 @@
+# FPV Arabia — Daily VelociDrone Track 🏁
+
+A Discord bot for **FPV Arabia**, the Arabic-speaking FPV community. Every day it picks a VelociDrone track, follows its public leaderboard for pilots from Arab countries, and posts the results, all in Arabic.
+
+---
+
+## How it works
+
+1. At the start hour the bot picks a random official track and posts it.
+2. Pilots fly it in **3 Lap: Single Class** with **Auto Leaderboard Upload** turned on.
+3. Every few minutes the bot reads the track's leaderboard on velocidrone.com. Any pilot with an Arab country flag who sets a new or faster time is posted in the channel.
+4. When the day ends the bot posts the final results, adds monthly points and starts the next track.
+
+Only times set during the day count. Times that were already on the leaderboard before the track was announced are ignored.
+
+**Points:** 10 · 8 · 6 · 5 · 4 · 3 · 2 · 1, and 1 point for every other pilot who flew.
+
+### Why tracks with room on the leaderboard
+
+The VelociDrone website shows the top 200 times of a track and nothing below. The bot prefers tracks with fewer entries (`MAX_ENTRIES`), so every member's time shows up, not only the fastest ones.
+
+---
+
+## Commands
+
+| Command | Who | What |
+|---|---|---|
+| `/vd_track` | Everyone | Today's track and current standings |
+| `/vd_month` | Everyone | Monthly points table |
+| `/vd_link` | Everyone | Link your VelociDrone name to your Discord account (mentions and winner role) |
+| `/vd_unlink` | Everyone | Remove the link |
+| `/vd_new` | Admins | Replace today's track (random, or a leaderboard link). No points are given for the replaced track |
+
+---
+
+## Project layout
+
+| File | Purpose |
+|---|---|
+| `bot.py` | Discord bot, scheduler and commands |
+| `velocidrone.py` | Reads the public leaderboard pages |
+| `rounds.py` | Daily round logic, points and storage |
+| `messages.py` | Arabic messages |
+| `tests/` | Tests with saved leaderboard pages |
+
+---
+
+## Running locally
+
+```
+pip install -r requirements.txt
+```
+Copy `.env.example` to `.env`, fill in the values, then:
+```
+python bot.py
+```
+
+Run the tests:
+```
+pip install pytest
+python -m pytest tests
+```
+
+## Deploying on Railway
+
+1. New project from this GitHub repo. Railway builds the `Dockerfile`.
+2. Add a volume mounted at `/data` and set `DATA_FILE=/data/state.json`, so points survive redeploys.
+3. Add the variables from `.env.example`.
+
+---
+
+## Notes
+
+- Data comes only from the public pages of velocidrone.com, checked every 10 minutes by default.
+- Pilots need their country set on their VelociDrone account for the flag to show.
+- The website keeps the race mode in the session; the bot always reads the **3 Lap: Single Class** boards.
+
+## License
+
+GPL-3.0

@@ -1,15 +1,15 @@
 {
  "round": {
   "track": {
-   "scenery_id": 40,
-   "track_id": 2009,
-   "scenery": "Future Hangar",
-   "name": "UGKL Cyberprop 2026"
+   "scenery_id": 101,
+   "track_id": 1064,
+   "scenery": "Apocalypse",
+   "name": "Apocalypse freestyle"
   },
-  "track_key": "40/2009",
-  "started_at": "2026-10-26T13:23:55.113816+03:00",
+  "track_key": "101/1064",
+  "started_at": "2026-10-26T13:34:53.615911+03:00",
   "ends_at": "2026-10-26T20:00:00+03:00",
-  "board_size": 127,
+  "board_size": 60,
   "baseline": {},
   "results": {},
   "announce_message_id": null

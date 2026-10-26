@@ -14,6 +14,18 @@ def _embed(**kw) -> dict:
     return {k: v for k, v in kw.items() if v is not None}
 
 
+LRM = "\u200e"  # keeps English code blocks left-to-right inside Arabic messages
+
+
+def _code(text: str) -> str:
+    return f"```{LRM}{text}```"
+
+
+def _ltr(text: str) -> str:
+    """Isolate an English or number run so Arabic text around it does not reorder it."""
+    return f"\u2066{text}\u2069"
+
+
 def _ts(iso: str, style: str = "R") -> str:
     return f"<t:{int(datetime.fromisoformat(iso).timestamp())}:{style}>"
 
@@ -35,15 +47,15 @@ def announce(rnd: dict, number: int) -> dict:
         ),
     )
     e["fields"] = [
-        {"name": "المكان", "value": f"```{t['scenery']}```", "inline": True},
-        {"name": "الحلبة", "value": f"```{t['name']}```", "inline": True},
+        {"name": "المكان", "value": _code(t['scenery']), "inline": True},
+        {"name": "الحلبة", "value": _code(t['name']), "inline": True},
         {"name": "عشان ينحسب وقتك", "inline": False, "value": (
-            "1️⃣ اختر وضع السباق:\n```3 Lap: Single Class```"
-            "2️⃣ فعّل رفع الأوقات:\n```Options → Main Settings → Auto Leaderboard Upload → Yes```"
+            f"1️⃣ اختر وضع السباق:\n{_code('3 Lap: Single Class')}"
+            f"2️⃣ فعّل رفع الأوقات:\n{_code('Options → Main Settings → Auto Leaderboard Upload → Yes')}"
             "3️⃣ خل علم دولتك العربية ظاهر في حسابك على موقع VelociDrone."
         )},
     ]
-    e["footer"] = {"text": "النقاط: 10 · 8 · 6 · 5 · 4 · 3 · 2 · 1 · وكل مشارك ياخذ نقطة"}
+    e["footer"] = {"text": f"النقاط من الأول للثامن: {_ltr('10 · 8 · 6 · 5 · 4 · 3 · 2 · 1')}\nوكل مشارك ثاني ياخذ نقطة"}
     return e
 
 
@@ -58,7 +70,7 @@ def standings_embed(rnd: dict, rows: list[dict], links: dict, final: bool) -> di
     t = rnd["track"]
     title = "🏆 نتائج حلبة اليوم" if final else "📊 الترتيب الحالي"
     e = _embed(title=title, color=COLOR)
-    e["description"] = f"```{t['scenery']} — {t['name']}```"
+    e["description"] = _code(f"{t['scenery']} — {t['name']}")
     if not rows:
         e["description"] += "\nما أحد سجل وقت للحين."
         return e
@@ -74,7 +86,7 @@ def standings_embed(rnd: dict, rows: list[dict], links: dict, final: bool) -> di
 
 def month_embed(month: str, table: list[tuple[str, int]], links: dict) -> dict:
     e = _embed(title="📅 ترتيب الشهر", color=COLOR)
-    e["description"] = f"```{month}```"
+    e["description"] = _code(month)
     if not table:
         e["description"] += "\nما فيه نقاط هالشهر للحين."
         return e

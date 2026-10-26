@@ -1,21 +1,36 @@
 {
  "round": {
   "track": {
-   "scenery_id": 101,
-   "track_id": 1064,
-   "scenery": "Apocalypse",
-   "name": "Apocalypse freestyle"
+   "scenery_id": 49,
+   "track_id": 844,
+   "scenery": "Red Valley",
+   "name": "Freestyle"
   },
-  "track_key": "101/1064",
-  "started_at": "2026-10-26T13:34:53.615911+03:00",
-  "ends_at": "2026-10-26T20:00:00+03:00",
-  "board_size": 60,
+  "track_key": "49/844",
+  "started_at": "2026-10-27T00:18:02.682717+03:00",
+  "ends_at": "2026-10-27T20:00:00+03:00",
+  "board_size": 2,
   "baseline": {},
   "results": {},
   "announce_message_id": null
  },
- "history": [],
- "months": {},
+ "history": [
+  {
+   "track_key": "101/1064",
+   "track": {
+    "scenery_id": 101,
+    "track_id": 1064,
+    "scenery": "Apocalypse",
+    "name": "Apocalypse freestyle"
+   },
+   "started_at": "2026-10-26T13:34:53.615911+03:00",
+   "ended_at": "2026-10-27T00:18:02.682717+03:00",
+   "results": []
+  }
+ ],
+ "months": {
+  "2026-10": {}
+ },
  "links": {},
  "winner_user": null
 }

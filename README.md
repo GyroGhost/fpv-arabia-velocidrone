@@ -21,15 +21,29 @@ The VelociDrone website shows the top 200 times of a track and nothing below. Th
 
 ---
 
-## Commands
+## Running on GitHub Actions
 
-| Command | Who | What |
-|---|---|---|
-| `/vd_track` | Everyone | Today's track and current standings |
-| `/vd_month` | Everyone | Monthly points table |
-| `/vd_link` | Everyone | Link your VelociDrone name to your Discord account (mentions and winner role) |
-| `/vd_unlink` | Everyone | Remove the link |
-| `/vd_new` | Admins | Replace today's track (random, or a leaderboard link). No points are given for the replaced track |
+The bot does not need a server. `.github/workflows/daily-track.yml` runs `run.py` every 15 minutes, and the run saves its state to `data/state.json` in this repo.
+
+1. Add the bot token as a repository secret named `DISCORD_TOKEN` (Settings → Secrets and variables → Actions).
+2. Channel and server ids are set in the workflow file.
+3. Optional: add a repository variable `WINNER_ROLE_ID` to give the daily winner a role. The bot role must be above that role in the server settings.
+
+Current standings are posted at 9:00 and 15:00 (Kuwait time) when someone has flown.
+
+### Replacing today's track
+
+Actions → Daily VelociDrone track → Run workflow, then type `random` or paste a leaderboard link. No points are given for the replaced track.
+
+### Linking pilots to Discord
+
+Add pilots to `links.json` to mention them and give the winner role:
+
+```json
+{
+  "VelociDrone name": "Discord user id"
+}
+```
 
 ---
 
@@ -37,41 +51,24 @@ The VelociDrone website shows the top 200 times of a track and nothing below. Th
 
 | File | Purpose |
 |---|---|
-| `bot.py` | Discord bot, scheduler and commands |
+| `run.py` | One check: open, update or close the day's track |
 | `velocidrone.py` | Reads the public leaderboard pages |
 | `rounds.py` | Daily round logic, points and storage |
 | `messages.py` | Arabic messages |
+| `links.json` | VelociDrone names linked to Discord accounts |
 | `tests/` | Tests with saved leaderboard pages |
-
----
-
-## Running locally
-
-```
-pip install -r requirements.txt
-```
-Copy `.env.example` to `.env`, fill in the values, then:
-```
-python bot.py
-```
 
 Run the tests:
 ```
-pip install pytest
+pip install requests pytest
 python -m pytest tests
 ```
-
-## Deploying on Railway
-
-1. New project from this GitHub repo. Railway builds the `Dockerfile`.
-2. Add a volume mounted at `/data` and set `DATA_FILE=/data/state.json`, so points survive redeploys.
-3. Add the variables from `.env.example`.
 
 ---
 
 ## Notes
 
-- Data comes only from the public pages of velocidrone.com, checked every 10 minutes by default.
+- Data comes only from the public pages of velocidrone.com, checked every 15 minutes.
 - Pilots need their country set on their VelociDrone account for the flag to show.
 - The website keeps the race mode in the session; the bot always reads the **3 Lap: Single Class** boards.
 

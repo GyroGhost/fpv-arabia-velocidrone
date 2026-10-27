@@ -1,17 +1,24 @@
 """All Arabic text the bot posts. English labels stay on their own lines or in code blocks."""
 from __future__ import annotations
 
+import os
 from datetime import datetime
 
 from rounds import flag, fmt_time
 
 COLOR = 0xE53935  # GyroGhost red
+ASSETS = "https://raw.githubusercontent.com/GyroGhost/fpv-arabia-velocidrone/main/assets"
+LOGO_URL = os.getenv("LOGO_URL") or f"{ASSETS}/logo.png"
+BANNER_URL = os.getenv("BANNER_URL") or f"{ASSETS}/banner.png"
 MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
 
 
 def _embed(**kw) -> dict:
-    """Plain Discord embed dict, sent through the REST API."""
-    return {k: v for k, v in kw.items() if v is not None}
+    """Plain Discord embed dict, sent through the REST API, with the Gyro logo in the corner."""
+    e = {k: v for k, v in kw.items() if v is not None}
+    if LOGO_URL:
+        e["thumbnail"] = {"url": LOGO_URL}
+    return e
 
 
 LRM = "\u200e"  # keeps English code blocks left-to-right inside Arabic messages
@@ -55,6 +62,8 @@ def announce(rnd: dict, number: int) -> dict:
             "3️⃣ خل علم دولتك العربية ظاهر في حسابك على موقع VelociDrone."
         )},
     ]
+    if BANNER_URL:
+        e["image"] = {"url": BANNER_URL}
     e["footer"] = {"text": f"النقاط من الأول للثامن: {_ltr('10 · 8 · 6 · 5 · 4 · 3 · 2 · 1')}\nوكل مشارك ثاني ياخذ نقطة"}
     return e
 
@@ -72,7 +81,7 @@ def standings_embed(rnd: dict, rows: list[dict], links: dict, final: bool) -> di
     e = _embed(title=title, color=COLOR)
     e["description"] = _code(f"{t['scenery']} — {t['name']}")
     if not rows:
-        e["description"] += "\nما أحد سجل وقت للحين."
+        e["description"] += "\nما أحد سجل وقت في هالحلبة 😅" if final else "\nما أحد سجل وقت للحين."
         return e
     lines = []
     for i, r in enumerate(rows[:20], 1):

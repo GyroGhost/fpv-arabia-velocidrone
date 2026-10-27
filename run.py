@@ -35,6 +35,8 @@ NEW_TRACK = (os.getenv("NEW_TRACK") or "").strip()  # manual run: "random" or a 
 
 API = "https://discord.com/api/v10"
 NO_PINGS = {"parse": []}
+# who gets pinged when a new track opens: "everyone", "here", a role id, or empty for nobody
+PING = (os.getenv("PING_NEW_TRACK") if os.getenv("PING_NEW_TRACK") is not None else "everyone").strip()
 
 
 def discord(method: str, path: str, **body) -> dict | None:
@@ -47,9 +49,18 @@ def discord(method: str, path: str, **body) -> dict | None:
     return r.json() if r.content else None
 
 
-def send(content: str | None = None, embeds: list[dict] | None = None) -> dict | None:
+def send(content: str | None = None, embeds: list[dict] | None = None,
+         allowed: dict = NO_PINGS) -> dict | None:
     return discord("POST", f"/channels/{CHANNEL_ID}/messages",
-                   content=content, embeds=embeds, allowed_mentions=NO_PINGS)
+                   content=content, embeds=embeds, allowed_mentions=allowed)
+
+
+def new_track_ping() -> tuple[str | None, dict]:
+    if PING in ("everyone", "here"):
+        return f"@{PING}", {"parse": ["everyone"]}
+    if PING.isdigit():
+        return f"<@&{PING}>", {"parse": [], "roles": [PING]}
+    return None, NO_PINGS
 
 
 def load_links() -> dict:
@@ -77,7 +88,8 @@ def open_round(store: Store, vd: Client, now: datetime, url: str | None = None) 
     rnd = start_round(track, entries, now, next_start(now))
     store.data["round"] = rnd
     store.save()  # saved before posting, so a failed post never opens a second track
-    send(embeds=[M.announce(rnd, len(store.data["history"]) + 1)])
+    content, allowed = new_track_ping()
+    send(content, embeds=[M.announce(rnd, len(store.data["history"]) + 1)], allowed=allowed)
     print(f"opened: {track.scenery} / {track.name} ({len(entries)} entries)")
 
 

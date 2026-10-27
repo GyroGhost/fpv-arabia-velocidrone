@@ -29,6 +29,10 @@ The bot does not need a server. `.github/workflows/daily-track.yml` runs `run.py
 2. Channel and server ids are set in the workflow file.
 3. Optional: add a repository variable `WINNER_ROLE_ID` to give the daily winner a role. The bot role must be above that role in the server settings.
 
+Every new track pings `@everyone` (the bot needs the **Mention @everyone** permission in the channel). Change `PING_NEW_TRACK` in the workflow to `here`, a role id, or leave it empty for no ping.
+
+The Gyro logo and banner are loaded from `assets/logo.png` and `assets/banner.png` in this repo.
+
 Current standings are posted at 9:00 and 15:00 (Kuwait time) when someone has flown.
 
 ### Replacing today's track

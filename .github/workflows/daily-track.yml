@@ -40,6 +40,10 @@ jobs:
           START_HOUR: "20"
           TIMEZONE: Asia/Kuwait
           NEW_TRACK: ${{ github.event.inputs.new_track }}
+          PING_NEW_TRACK: everyone
+          LOGO_URL: https://raw.githubusercontent.com/GyroGhost/fpv-arabia-velocidrone/main/logo.png
+          BANNER_URL: https://raw.githubusercontent.com/GyroGhost/fpv-arabia-velocidrone/main/banner.png
+        
         run: python run.py
 
       - name: Save state

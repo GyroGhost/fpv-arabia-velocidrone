@@ -1,15 +1,15 @@
 {
  "round": {
   "track": {
-   "scenery_id": 49,
-   "track_id": 844,
-   "scenery": "Red Valley",
-   "name": "Freestyle"
+   "scenery_id": 38,
+   "track_id": 1160,
+   "scenery": "Night Club",
+   "name": "The Racing Hour - TRH2212 - Micro"
   },
-  "track_key": "49/844",
-  "started_at": "2026-10-27T00:18:02.682717+03:00",
+  "track_key": "38/1160",
+  "started_at": "2026-10-27T12:27:42.720758+03:00",
   "ends_at": "2026-10-27T20:00:00+03:00",
-  "board_size": 2,
+  "board_size": 23,
   "baseline": {},
   "results": {},
   "announce_message_id": null

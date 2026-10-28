@@ -161,10 +161,10 @@ def main() -> None:
         close_round(store, vd, links, now)
         rnd = None
     if not rnd:
+        if now.hour >= 23 or now.hour < 10:
+            print("quiet hours")
+            return
         open_round(store, vd, now)
-        return
-    poll_round(store, vd, links)
-    maybe_post_standings(store, links, now)
 
 
 if __name__ == "__main__":

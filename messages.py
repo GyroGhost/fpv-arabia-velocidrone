@@ -81,7 +81,7 @@ def standings_embed(rnd: dict, rows: list[dict], links: dict, final: bool) -> di
     e = _embed(title=title, color=COLOR)
     e["description"] = _code(f"{t['scenery']} — {t['name']}")
     if not rows:
-        e["description"] += "\nما أحد سجل وقت في هالحلبة 😅" if final else "\nما أحد سجل وقت للحين."
+        e["description"] += "\nلم يشارك أحد 😅" if final else "\nلم يشارك أحد ."
         return e
     lines = []
     for i, r in enumerate(rows[:20], 1):

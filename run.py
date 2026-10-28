@@ -165,6 +165,9 @@ def main() -> None:
             print("quiet hours")
             return
         open_round(store, vd, now)
+        return
+    poll_round(store, vd, links)
+    maybe_post_standings(store, links, now)
 
 
 if __name__ == "__main__":

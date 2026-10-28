@@ -1,15 +1,15 @@
 {
  "round": {
   "track": {
-   "scenery_id": 21,
-   "track_id": 1658,
-   "scenery": "Sports Hall",
-   "name": "Whooptopia2025 Glendale"
+   "scenery_id": 42,
+   "track_id": 1514,
+   "scenery": "Empty PolyWorld",
+   "name": "RaceGOW2 Track6"
   },
-  "track_key": "21/1658",
-  "started_at": "2026-10-27T23:49:47.291650+03:00",
-  "ends_at": "2026-10-28T20:00:00+03:00",
-  "board_size": 173,
+  "track_key": "42/1514",
+  "started_at": "2026-10-28T21:20:36.796312+03:00",
+  "ends_at": "2026-10-29T20:00:00+03:00",
+  "board_size": 159,
   "baseline": {},
   "results": {},
   "announce_message_id": null
@@ -37,6 +37,18 @@
    },
    "started_at": "2026-10-27T12:27:42.720758+03:00",
    "ended_at": "2026-10-27T23:49:47.291650+03:00",
+   "results": []
+  },
+  {
+   "track_key": "21/1658",
+   "track": {
+    "scenery_id": 21,
+    "track_id": 1658,
+    "scenery": "Sports Hall",
+    "name": "Whooptopia2025 Glendale"
+   },
+   "started_at": "2026-10-27T23:49:47.291650+03:00",
+   "ended_at": "2026-10-28T21:20:36.796312+03:00",
    "results": []
   }
  ],

@@ -1,5 +1,19 @@
 {
- "round": null,
+ "round": {
+  "track": {
+   "scenery_id": 36,
+   "track_id": 582,
+   "scenery": "PolyWorld",
+   "name": "CTF Junkyard Falls"
+  },
+  "track_key": "36/582",
+  "started_at": "2026-10-30T14:40:41.107687+03:00",
+  "ends_at": "2026-10-31T20:00:00+03:00",
+  "board_size": 39,
+  "baseline": {},
+  "results": {},
+  "announce_message_id": null
+ },
  "history": [
   {
    "track_key": "101/1064",
